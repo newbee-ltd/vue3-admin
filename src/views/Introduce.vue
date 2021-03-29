@@ -88,7 +88,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
   .course {
     font-weight: bold;
