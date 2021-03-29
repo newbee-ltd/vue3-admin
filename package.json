@@ -1,0 +1,35 @@
+{
+  "name": "vue3-admin",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --mode development",
+    "build:beta": "vite build --mode beta",
+    "build:release": "vite build --mode release",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "element-plus": "^1.0.2-beta.33",
+    "js-md5": "^0.7.3",
+    "pushstate-server": "^3.1.0",
+    "qs": "^6.9.6",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.4",
+    "wangeditor": "^4.6.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/runtime": "^7.13.8",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@vitejs/plugin-vue": "^1.1.4",
+    "@vue/compiler-sfc": "^3.0.5",
+    "babel": "^6.23.0",
+    "babel-plugin-component": "^1.1.1",
+    "babel-plugin-import": "^1.13.3",
+    "element-theme-chalk": "^2.15.1",
+    "vite": "^2.0.1",
+    "vite-babel-plugin": "^0.0.2",
+    "vite-plugin-babel-import": "^2.0.2",
+    "vite-plugin-imp": "^2.0.4"
+  }
+}
