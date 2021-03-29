@@ -1,6 +1,5 @@
 <template>
   <el-card class="account-container">
-    <img class="logo" src="https://s.yezgea02.com/1616331765416/WechatIMG40113.png" alt="" />
     <h1>系统简介</h1>
     <div style="line-height: 30px">
       vue3-admin 是一套企业级后台管理系统，基于 Spring Boot 、Vue 3.0 相关技术栈开发，包含基础版本和前后端分离版本，供各位开发者们体验和学习，一定给你最好的学习体验。
@@ -91,11 +90,6 @@ export default {
 </script>
 
 <style scoped>
-  .logo {
-    width: 200px;
-    display: block;
-    margin: 0 auto;
-  }
   .course {
     font-weight: bold;
     display: inline-block;
