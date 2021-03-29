@@ -37,6 +37,7 @@ export default {
   setup() {
     const router = useRouter()
     const pathMap = {
+      introduce: '系统介绍',
       dashboard: '大盘数据',
       add: '添加商品',
       swiper: '轮播图配置',
