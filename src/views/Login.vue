@@ -49,11 +49,10 @@ export default {
     const submitForm = () => {
       loginForm.value.validate(async(valid) => {
         if (valid) {
-          const res = axios.post('/adminUser/login', {
+          const res = await axios.post('/adminUser/login', {
             userName: state.ruleForm.username || '',
             passwordMd5: md5(state.ruleForm.password)
           })
-          console.log(res)
           localSet('token', res)
           window.location.href = '/'
         } else {
