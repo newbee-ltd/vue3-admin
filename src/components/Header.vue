@@ -32,6 +32,7 @@
 import { onMounted, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from '@/utils/axios'
+import { localRemove } from '@/utils'
 export default {
   name: 'Header',
   setup() {
@@ -70,6 +71,7 @@ export default {
     }
     const logout = () => {
       axios.delete('/logout').then(() => {
+        localRemove('token')
         router.push({ path: '/login' })
       })
     }
