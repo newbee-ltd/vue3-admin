@@ -8,12 +8,12 @@
           <div class="tips">Vue3.0 后台管理系统</div>
         </div>
       </div>
-      <el-form label-position="top" :model="ruleForm" ref="loginForm" class="login-form">
+      <el-form label-position="top" :model="ruleForm" ref="loginForm" class="login-form" :rules="rules">
         <el-form-item label="账号" prop="username">
-          <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
+          <el-input type="text" v-model.trim="ruleForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+          <el-input type="password" v-model.trim="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
           <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
@@ -30,6 +30,7 @@ import axios from '@/utils/axios'
 import md5 from 'js-md5'
 import { reactive, ref, toRefs } from 'vue'
 import { localSet } from '@/utils'
+import { requiedMsg } from '@/utils/validate'
 export default {
   name: 'Login',
   setup() {
@@ -39,26 +40,22 @@ export default {
         username: '',
         password: ''
       },
-      checked: true,
-      rules: {
-        username: [
-          { required: 'true', message: '账户不能为空', trigger: ['change'] }
-        ],
-        password: [
-          { required: 'true', message: '密码不能为空', trigger: ['change'] }
-        ]
-      }
+      checked: true
     })
-    const submitForm = async () => {
-      loginForm.value.validate((valid) => {
+    const rules = {
+      username: [requiedMsg("账户不能为空")],
+       password: [requiedMsg("密码不能为空")]
+    }
+    const submitForm = () => {
+      loginForm.value.validate(async(valid) => {
         if (valid) {
-          axios.post('/adminUser/login', {
+          const res = axios.post('/adminUser/login', {
             userName: state.ruleForm.username || '',
             passwordMd5: md5(state.ruleForm.password)
-          }).then(res => {
-            localSet('token', res)
-            window.location.href = '/'
           })
+          console.log(res)
+          localSet('token', res)
+          window.location.href = '/'
         } else {
           console.log('error submit!!')
           return false;
@@ -70,6 +67,7 @@ export default {
     }
     return {
       ...toRefs(state),
+      rules,
       loginForm,
       submitForm,
       resetForm

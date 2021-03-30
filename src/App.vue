@@ -100,7 +100,8 @@ export default {
       guest: '会员管理',
       order: '订单管理',
       order_detail: '订单详情',
-      account: '修改账户'
+      account: '修改账户',
+      login: '登陆页',
     }
     const noMenu = ['/login']
     const router = useRouter()
