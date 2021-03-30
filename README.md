@@ -2,7 +2,7 @@
 
 Vue 3.0 + Vite 2.0 + Vue-Router 4.0 + Element-Plus + Echarts 5.0 + Axios 后台管理系统。
 
-<img src="https://user-images.githubusercontent.com/10935614/111867361-619e2100-89ae-11eb-847c-77b668835f91.png" alt="vue3-elementplus" style="zoom: 33%;" />
+<img width="600" alt="vue3-admin" src="https://user-images.githubusercontent.com/54432435/112945709-32826f00-9167-11eb-9c23-bbf5a97ec8d4.png">
 
 ![Build Status](https://img.shields.io/badge/build-passing-green.svg)
 ![Version 3.0.0](https://img.shields.io/badge/version-3.0.0-yellow.svg)
