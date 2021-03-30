@@ -135,6 +135,13 @@ export default {
   .aside {
     width: 200px!important;
     background-color: #222832;
+    overflow: hidden;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+  }
+  .aside::-webkit-scrollbar {
+    display: none;
   }
   .head {
     display: flex;
