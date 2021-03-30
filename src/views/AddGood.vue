@@ -33,6 +33,7 @@
           <el-upload
             class="avatar-uploader"
             :action="uploadImgServer"
+            accept="jpg,jpeg,png"
             :headers="{
               token: token
             }"
