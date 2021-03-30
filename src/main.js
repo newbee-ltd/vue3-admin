@@ -3,6 +3,8 @@ import { ElButton, ElContainer, ElAside, ElHeader, ElMain, ElFooter, ElMenu, ElS
 import App from './App.vue'
 import router from './router/index'
 
+// import 'element-plus/lib/theme-chalk/index.css'
+
 // 修改后的主题样式必须放在最后面
 import '../theme/index.css'
 

@@ -17,9 +17,9 @@ export default ({ mode }) =>  defineConfig({
       {
         libraryName: 'element-plus',
         libraryDirectory: 'es',
-        // style(name) {
-        //   return `element-plus/lib/theme-chalk/${name}.css`;
-        // },
+        style(name) {
+          return `element-plus/lib/theme-chalk/${name}.css`;
+        },
       }
     ])
   ],
