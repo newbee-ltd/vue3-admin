@@ -10,7 +10,7 @@ Vue 3.0 + Vite 2.0 + Vue-Router 4.0 + Element-Plus + Echarts 5.0 + Axios 后台�
 
 newbee-mall 项目是一套电商系统，基于 Spring Boot 2.X 和 Vue 以及相关技术栈开发。 前台商城系统包含首页门户、商品分类、新品上线、首页轮播、商品推荐、商品搜索、商品展示、购物车、订单结算、订单流程、个人订单管理、会员中心、帮助中心等模块。 后台管理系统包含数据面板、轮播图管理、商品管理、订单管理、会员管理、分类管理、设置等模块。
 
-**vue3-admin** **版本线上预览地址：**[http://vue3-admin.newbee.ltd](http://vue3-admin.newbee.ltd)。
+**vue3-admin** **版本线上预览地址：**[http://vue3-admin.newbee.ltd](http://vue3-admin.newbee.ltd)，测试账号密码：admin 123456
 
 本仓库中的源码为新蜂商城前后端分离版本的后台管理系统（Vue 版本为 3.x），主要面向前端开发人员，后端 API 源码在另外一个仓库 [newbee-mall-api](https://github.com/newbee-ltd/newbee-mall-api)。
 
@@ -30,6 +30,8 @@ newbee-mall 项目是一套电商系统，基于 Spring Boot 2.X 和 Vue 以及�
 ![wx-gzh](https://newbee-mall.oss-cn-beijing.aliyuncs.com/wx-gzh/%E6%89%AB%E7%A0%81%E5%85%B3%E6%B3%A8.png)
 
 ## 开发及部署文档
+
+申请了 5 折优惠码：**pF0tXyYz**，只有100枚，手慢无。
 
 - [开篇词：通关Vue3.0 企业级项目开发，升职加薪快人一步](https://juejin.cn/book/6933939264455442444)
 - [项目须知和课程约定](https://juejin.cn/book/6933939264455442444)
