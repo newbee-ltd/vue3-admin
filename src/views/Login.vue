@@ -8,12 +8,12 @@
           <div class="tips">Vue3.0 后台管理系统</div>
         </div>
       </div>
-      <el-form label-position="top" :model="ruleForm" ref="loginForm" class="login-form">
+      <el-form label-position="top" :rules="rules" :model="ruleForm" ref="loginForm" class="login-form">
         <el-form-item label="账号" prop="username">
-          <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
+          <el-input type="text" v-model.trim="ruleForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+          <el-input type="password" v-model.trim="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
           <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
@@ -42,10 +42,10 @@ export default {
       checked: true,
       rules: {
         username: [
-          { required: 'true', message: '账户不能为空', trigger: ['change'] }
+          { required: 'true', message: '账户不能为空', trigger: 'blur' }
         ],
         password: [
-          { required: 'true', message: '密码不能为空', trigger: ['change'] }
+          { required: 'true', message: '密码不能为空', trigger: 'blur' }
         ]
       }
     })
