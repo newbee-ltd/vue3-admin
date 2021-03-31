@@ -78,6 +78,7 @@ import { reactive } from 'vue'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { useRouter } from 'vue-router'
+import { pathMap, localGet } from '@/utils'
 export default {
   name: 'App',
   components: {
@@ -85,23 +86,6 @@ export default {
     Footer
   },
   setup() {
-    const pathMap = {
-      introduce: '系统介绍',
-      dashboard: '大盘数据',
-      add: '添加商品',
-      swiper: '轮播图配置',
-      hot: '热销商品配置',
-      new: '新品上线配置',
-      recommend: '为你推荐配置',
-      category: '分类管理',
-      level2: '分类二级管理',
-      level3: '分类三级管理',
-      good: '商品管理',
-      guest: '会员管理',
-      order: '订单管理',
-      order_detail: '订单详情',
-      account: '修改账户'
-    }
     const noMenu = ['/login']
     const router = useRouter()
     const state = reactive({
@@ -112,7 +96,20 @@ export default {
         number: 1
       }
     })
-    router.beforeEach((to) => {
+    router.beforeEach((to, from, next) => {
+      if (to.path == '/login') {
+        // 如果路径是 /login 则正常执行
+        next()
+      } else {
+        // 如果不是 /login，判断是否有 token
+        if (!localGet('token')) {
+          // 如果没有，则跳至登录页面
+          next({ path: '/login' })
+        } else {
+          // 否则继续执行
+          next()
+        }
+      }
       state.showMenu = !noMenu.includes(to.path)
       state.currentPath = to.path
       document.title = pathMap[to.name]
