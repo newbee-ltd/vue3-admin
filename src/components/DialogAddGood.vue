@@ -12,7 +12,7 @@
         <el-input type="text" v-model="ruleForm.link"></el-input>
       </el-form-item>
       <el-form-item required label="商品编号" prop="id">
-        <el-input type="number" v-model="ruleForm.id"></el-input>
+        <el-input type="number" min="0" v-model="ruleForm.id"></el-input>
       </el-form-item>
       <el-form-item required label="排序值" prop="sort">
         <el-input type="number" v-model="ruleForm.sort"></el-input>
@@ -51,13 +51,13 @@ export default {
       },
       rules: {
         name: [
-          { required: 'true', message: '名称不能为空', trigger: ['change'] }
+          { required: 'true', message: '名称不能为空', trigger: 'blur' }
         ],
         id: [
-          { required: 'true', message: '编号不能为空', trigger: ['change'] }
+          { required: 'true', message: '编号不能为空', trigger: 'blur' }
         ],
         sort: [
-          { required: 'true', message: '排序不能为空', trigger: ['change'] }
+          { required: 'true', message: '排序不能为空', trigger: 'blur' }
         ]
       },
       id: ''
@@ -97,6 +97,10 @@ export default {
         if (valid) {
           if (hasEmoji(state.ruleForm.name) || hasEmoji(state.ruleForm.link)) {
             ElMessage.error('不要输入表情包，再输入就打死你个龟孙儿~')
+            return
+          }
+          if (state.ruleForm.id < 0) {
+            ElMessage.error('商品编号不能小于 0')
             return
           }
           if (props.type == 'add') {
