@@ -5,7 +5,7 @@
     width="400px"
   >
     <el-form :model="ruleForm" :rules="rules" ref="formRef" label-width="100px" class="good-form">
-      <el-form-item required label="商品名称" prop="name">
+      <el-form-item label="商品名称" prop="name">
         <el-input type="text" v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item label="排序值" prop="rank">

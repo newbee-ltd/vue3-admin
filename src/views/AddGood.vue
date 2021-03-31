@@ -5,22 +5,22 @@
         <el-form-item required label="商品分类">
           <el-cascader :placeholder="defaultCate" style="width: 300px" :props="category" @change="handleChangeCate"></el-cascader>
         </el-form-item>
-        <el-form-item required label="商品名称" prop="goodsName">
+        <el-form-item label="商品名称" prop="goodsName">
           <el-input style="width: 300px" v-model="goodForm.goodsName" placeholder="请输入商品名称"></el-input>
         </el-form-item>
         <el-form-item label="商品简介" prop="goodsIntro">
           <el-input style="width: 300px" type="textarea" v-model="goodForm.goodsIntro" placeholder="请输入商品简介(100字)"></el-input>
         </el-form-item>
-        <el-form-item required label="商品价格" prop="originalPrice">
+        <el-form-item label="商品价格" prop="originalPrice">
           <el-input type="number" min="0" style="width: 300px" v-model="goodForm.originalPrice" placeholder="请输入商品价格"></el-input>
         </el-form-item>
-        <el-form-item required label="商品售卖价" prop="sellingPrice">
+        <el-form-item label="商品售卖价" prop="sellingPrice">
           <el-input type="number" min="0" style="width: 300px" v-model="goodForm.sellingPrice" placeholder="请输入商品售价"></el-input>
         </el-form-item>
-        <el-form-item required label="商品库存" prop="stockNum">
+        <el-form-item label="商品库存" prop="stockNum">
           <el-input type="number" min="0" style="width: 300px" v-model="goodForm.stockNum" placeholder="请输入商品库存"></el-input>
         </el-form-item>
-        <el-form-item required label="商品标签" prop="tag">
+        <el-form-item label="商品标签" prop="tag">
           <el-input style="width: 300px" v-model="goodForm.tag" placeholder="请输入商品小标签"></el-input>
         </el-form-item>
         <el-form-item label="上架状态" prop="goodsSellStatus">

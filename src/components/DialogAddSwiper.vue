@@ -23,7 +23,7 @@
       <el-form-item label="跳转链接" prop="link">
         <el-input type="text" v-model="ruleForm.link"></el-input>
       </el-form-item>
-      <el-form-item required label="排序值" prop="sort">
+      <el-form-item label="排序值" prop="sort">
         <el-input type="number" v-model="ruleForm.sort"></el-input>
       </el-form-item>
     </el-form>

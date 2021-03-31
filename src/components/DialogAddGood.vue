@@ -5,16 +5,16 @@
     width="400px"
   >
     <el-form :model="ruleForm" :rules="rules" ref="formRef" label-width="100px" class="good-form">
-      <el-form-item required label="商品名称" prop="name">
+      <el-form-item label="商品名称" prop="name">
         <el-input type="text" v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item label="跳转链接" prop="link">
         <el-input type="text" v-model="ruleForm.link"></el-input>
       </el-form-item>
-      <el-form-item required label="商品编号" prop="id">
+      <el-form-item label="商品编号" prop="id">
         <el-input type="number" min="0" v-model="ruleForm.id"></el-input>
       </el-form-item>
-      <el-form-item required label="排序值" prop="sort">
+      <el-form-item label="排序值" prop="sort">
         <el-input type="number" v-model="ruleForm.sort"></el-input>
       </el-form-item>
     </el-form>
@@ -51,13 +51,13 @@ export default {
       },
       rules: {
         name: [
-          { required: 'true', message: '名称不能为空', trigger: 'blur' }
+          { required: 'true', message: '名称不能为空', trigger: ['change'] }
         ],
         id: [
-          { required: 'true', message: '编号不能为空', trigger: 'blur' }
+          { required: 'true', message: '编号不能为空', trigger: ['change'] }
         ],
         sort: [
-          { required: 'true', message: '排序不能为空', trigger: 'blur' }
+          { required: 'true', message: '排序不能为空', trigger: ['change'] }
         ]
       },
       id: ''
