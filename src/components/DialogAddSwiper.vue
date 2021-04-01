@@ -14,6 +14,7 @@
             token: token
           }"
           :show-file-list="false"
+          :before-upload="handleBeforeUpload"
           :on-success="handleUrlSuccess"
         >
           <img style="width: 200px; height: 100px; border: 1px solid #e9e9e9;" v-if="ruleForm.url" :src="ruleForm.url" class="avatar">
@@ -79,6 +80,13 @@ export default {
         }
       })
     }
+    const handleBeforeUpload = (file) => {
+      const sufix = file.name.split('.')[1] || ''
+      if (!['jpg', 'jpeg', 'png'].includes(sufix)) {
+        ElMessage.error('请上传 jpg、jpeg、png 格式的图片')
+        return false
+      }
+    }
     // 上传图片
     const handleUrlSuccess = (val) => {
       state.ruleForm.url = val.data || ''
@@ -139,6 +147,7 @@ export default {
       open,
       close,
       formRef,
+      handleBeforeUpload,
       handleUrlSuccess,
       submitForm
     }

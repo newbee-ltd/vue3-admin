@@ -38,6 +38,7 @@
               token: token
             }"
             :show-file-list="false"
+            :before-upload="handleBeforeUpload"
             :on-success="handleUrlSuccess"
           >
             <img style="width: 100px; height: 100px; border: 1px solid #e9e9e9;" v-if="goodForm.goodsCoverImg" :src="goodForm.goodsCoverImg" class="avatar">
@@ -216,6 +217,13 @@ export default {
         }
       })
     }
+    const handleBeforeUpload = (file) => {
+      const sufix = file.name.split('.')[1] || ''
+      if (!['jpg', 'jpeg', 'png'].includes(sufix)) {
+        ElMessage.error('请上传 jpg、jpeg、png 格式的图片')
+        return false
+      }
+    }
     const handleUrlSuccess = (val) => {
       state.goodForm.goodsCoverImg = val.data || ''
     }
@@ -226,6 +234,7 @@ export default {
       ...toRefs(state),
       goodRef,
       submitAdd,
+      handleBeforeUpload,
       handleUrlSuccess,
       editor,
       handleChangeCate
