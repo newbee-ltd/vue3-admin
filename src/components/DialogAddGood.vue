@@ -99,8 +99,8 @@ export default {
             ElMessage.error('不要输入表情包，再输入就打死你个龟孙儿~')
             return
           }
-          if (state.ruleForm.id < 0) {
-            ElMessage.error('商品编号不能小于 0')
+          if (state.ruleForm.id < 0 || state.ruleForm.id > 200) {
+            ElMessage.error('商品编号不能小于 0 或大于 200')
             return
           }
           if (props.type == 'add') {
