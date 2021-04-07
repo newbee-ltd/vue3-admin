@@ -28,7 +28,7 @@
         label="轮播图"
         width="200">
         <template #default="scope">
-          <img style="width: 200px" :src="scope.row.carouselUrl" alt="轮播图">
+          <img style="width: 150px;height: 150px" :src="scope.row.carouselUrl" alt="轮播图">
         </template>
       </el-table-column>
       <el-table-column
