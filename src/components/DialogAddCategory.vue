@@ -73,7 +73,7 @@ export default {
         getDetail(id)
       } else {
         // 新增类目，从路由获取父分类id 和 分类级别
-        const { level, parent_id } = route.query
+        const { level = 1, parent_id = 0 } = route.query
         state.ruleForm = {
           name: '',
           rank: ''

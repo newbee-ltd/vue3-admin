@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref, toRefs } from 'vue'
+import { onMounted, onUnmounted, reactive, ref, toRefs } from 'vue'
 import { ElMessage } from 'element-plus'
 import DialogAddGood from '@/components/DialogAddGood.vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -117,7 +117,7 @@ export default {
       configType: 3 // 3-(首页)热销商品 4-(首页)新品上线 5-(首页)为你推荐
     })
     // 监听路由变化
-    router.beforeEach((to) => {
+    const unwatch = router.beforeEach((to) => {
       if (['hot', 'new', 'recommend'].includes(to.name)) {
         state.configType = configTypeMap[to.name]
         state.currentPage = 1
@@ -128,6 +128,9 @@ export default {
     onMounted(() => {
       state.configType = configTypeMap[route.name]
       getIndexConfig()
+    })
+    onUnmounted(() => {
+      unwatch()
     })
     // 首页热销商品列表
     const getIndexConfig = () => {

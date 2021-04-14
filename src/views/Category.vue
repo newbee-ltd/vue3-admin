@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref, toRefs } from 'vue'
+import { onMounted, onUnmounted, reactive, ref, toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import DialogAddCategory from '@/components/DialogAddCategory.vue'
@@ -103,7 +103,10 @@ export default {
     onMounted(() => {
       getCategory()
     })
-    router.afterEach((to) => {
+    onUnmounted(() => {
+      unwatch()
+    })
+    const unwatch = router.afterEach((to) => {
       if (['category', 'level2', 'level3'].includes(to.name)) {
         getCategory()
       }
