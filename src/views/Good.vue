@@ -1,5 +1,5 @@
 <template>
-  <el-card class="swiper-container">
+  <el-card class="good-container">
     <template #header>
       <div class="header">
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">新增商品</el-button>
@@ -154,7 +154,7 @@ export default {
 </script>
 
 <style scoped>
-  .swiper-container {
+  .good-container {
     min-height: 100%;
   }
   .el-card.is-always-shadow {

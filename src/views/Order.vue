@@ -26,7 +26,6 @@
     </template>
     <el-table
       v-loading="loading"
-      ref="multipleTable"
       :data="tableData"
       tooltip-effect="dark"
       style="width: 100%"
@@ -122,8 +121,6 @@ import axios from '@/utils/axios'
 export default {
   name: 'Order',
   setup() {
-    const multipleTable = ref(null)
-    const addGood = ref(null)
     const state = reactive({
       loading: false,
       tableData: [], // 数据列表
@@ -252,9 +249,7 @@ export default {
     }
     return {
       ...toRefs(state),
-      multipleTable,
       handleSelectionChange,
-      addGood,
       getOrderList,
       changePage,
       handleOption,

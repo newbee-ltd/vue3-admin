@@ -1,10 +1,10 @@
 <template>
   <el-card class="account-container">
     <el-form :model="nameForm" :rules="rules" ref="nameRef" label-width="80px" label-position="right" class="demo-ruleForm">
-      <el-form-item required label="登录名：" prop="loginName">
+      <el-form-item label="登录名：" prop="loginName">
         <el-input style="width: 200px" v-model="nameForm.loginName"></el-input>
       </el-form-item>
-      <el-form-item required label="昵称：" prop="nickName">
+      <el-form-item label="昵称：" prop="nickName">
         <el-input style="width: 200px" v-model="nameForm.nickName"></el-input>
       </el-form-item>
       <el-form-item>
@@ -14,10 +14,10 @@
   </el-card>
   <el-card class="account-container">
     <el-form :model="passForm" :rules="rules" ref="passRef" label-width="80px" label-position="right" class="demo-ruleForm">
-      <el-form-item required label="原密码：" prop="oldpass">
+      <el-form-item label="原密码：" prop="oldpass">
         <el-input style="width: 200px" v-model="passForm.oldpass"></el-input>
       </el-form-item>
-      <el-form-item required label="新密码：" prop="newpass">
+      <el-form-item label="新密码：" prop="newpass">
         <el-input style="width: 200px" v-model="passForm.newpass"></el-input>
       </el-form-item>
       <el-form-item>

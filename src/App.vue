@@ -54,7 +54,6 @@
             </template>
             <el-menu-item-group>
               <el-menu-item index="/account"><i class="el-icon-lock" />修改密码</el-menu-item>
-              <!-- <el-menu-item><i class="el-icon-upload2" />安全退出</el-menu-item> -->
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
