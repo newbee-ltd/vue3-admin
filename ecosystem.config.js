@@ -2,8 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'vue3-admin',
-      script: 'vue3-admin-server.js',
-      cwd: 'server'
+      script: 'vue3-admin-server.js'
     },
   ],
   deploy: {
