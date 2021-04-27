@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import { ElButton, ElContainer, ElAside, ElHeader, ElMain, ElFooter, ElMenu, ElSubmenu, ElMenuItemGroup, ElMenuItem, ElForm, ElFormItem, ElInput, ElPopover, ElTag, ElCard, ElTable, ElTableColumn, ElPagination, ElDialog, ElPopconfirm, ElUpload, ElLoading, ElSelect, ElOption, ElRadioGroup, ElRadio, ElCascader, ElCheckbox, ElInputNumber } from 'element-plus'
+import * as Sentry from "@sentry/browser";
+import { Integrations } from "@sentry/tracing";
 import App from './App.vue'
 import router from './router/index'
 
@@ -80,5 +82,15 @@ app.use(ElButton)
     .use(ElCascader)
     .use(ElCheckbox)
     .use(ElInputNumber)
+
+    Sentry.init({
+      dsn: "https://f866b695d21d467ba523f1adf14e0a24@o584908.ingest.sentry.io/5737358",
+      integrations: [new Integrations.BrowserTracing()],
+    
+      // Set tracesSampleRate to 1.0 to capture 100%
+      // of transactions for performance monitoring.
+      // We recommend adjusting this value in production
+      tracesSampleRate: 1.0,
+    });
 
 app.mount('#app')
