@@ -55,7 +55,7 @@ export default {
     const logout = () => {
       axios.delete('/logout').then(() => {
         localRemove('token')
-        router.push({ path: '/login' })
+        window.location.reload()
       })
     }
     const back = () => {
