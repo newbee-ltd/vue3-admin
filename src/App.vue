@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { onUnmounted, reactive } from 'vue'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { useRouter } from 'vue-router'
@@ -95,7 +95,7 @@ export default {
         number: 1
       }
     })
-    router.beforeEach((to, from, next) => {
+    const unwatch = router.beforeEach((to, from, next) => {
       if (to.path == '/login') {
         // 如果路径是 /login 则正常执行
         next()
@@ -113,6 +113,11 @@ export default {
       state.currentPath = to.path
       document.title = pathMap[to.name]
     })
+
+    onUnmounted(() => {
+      unwatch()
+    })
+
     return {
       state
     }
