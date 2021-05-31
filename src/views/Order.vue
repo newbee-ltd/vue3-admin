@@ -59,7 +59,7 @@
         <template #default='scope'>
           <span v-if="scope.row.payType == 1">微信支付</span>
           <span v-else-if="scope.row.payType == 2">支付宝支付</span>
-          <span v-else>未知</span>
+          <span v-else>未支付</span>
         </template>
       </el-table-column>
       <el-table-column
