@@ -1,8 +1,8 @@
 # vue3-admin
 
-- [《newbee-mall开源项目被慕课网拿去做课程，然而我毫不知情，这又是什么骚操作？》](https://juejin.cn/post/6970407663859400718)
-- [《newbee-mall开源项目被慕课网拿去做课程，项目详细对比记录，更多实锤看这里》](https://juejin.cn/post/6970407668716404773)
-- [《一个被慕课网拿去做Java就业班终极项目的开源商城项目，推荐给大家》](https://juejin.cn/post/6970407667198066724)
+- [《newbee-mall开源项目被慕课网拿去做课程，然后我毫不知情，这又是什么骚操作？》](https://mp.weixin.qq.com/s/oXr6O7u7vqQQi8mzTkoTDg)
+- [《newbee-mall开源项目被慕课网拿去做课程，项目详细对比记录，更多实锤看这里》](https://mp.weixin.qq.com/s/JTt0r_t8qhfUwkhpdUjrTg)
+- [《一个被慕课网拿去做Java就业班终极项目的开源商城项目，推荐给大家》](https://mp.weixin.qq.com/s/BKIETwgEPBprWYhQZJDLIA)
 
 Vue 3.0 + Vite 2.0 + Vue-Router 4.0 + Element-Plus + Echarts 5.0 + Axios 后台管理系统。
 
