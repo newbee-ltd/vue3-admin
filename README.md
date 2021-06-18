@@ -107,7 +107,7 @@ newbee-mall 项目是一套电商系统，基于 Spring Boot 2.X 和 Vue 以及�
 - [Element-Plus](https://element-plus.gitee.io/#/zh-CN)
 - [Vite 2.0](https://cn.vitejs.dev/)
 - [Vue-Router](https://next.router.vuejs.org/zh/index.html)
-- [Echar 5.0](https://echarts.apache.org/zh/index.html)
+- [Echarts 5.0](https://echarts.apache.org/zh/index.html)
 - [Axios](http://www.axios-js.com/)
 
 ## 捐助
