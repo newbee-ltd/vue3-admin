@@ -2,7 +2,7 @@
   <div class="add">
     <el-card class="add-container">
       <el-form :model="goodForm" :rules="rules" ref="goodRef" label-width="100px" class="goodForm">
-        <el-form-item required label="商品分类">
+        <el-form-item required label="商品分类" prop="categoryId">
           <el-cascader :placeholder="defaultCate" style="width: 300px" :props="category" @change="handleChangeCate"></el-cascader>
         </el-form-item>
         <el-form-item label="商品名称" prop="goodsName">
@@ -89,6 +89,12 @@ export default {
         tag: ''
       },
       rules: {
+        goodsCoverImg: [
+          { required: 'true', message: '请上传主图', trigger: ['change'] }
+        ],
+        categoryId: [
+          { required: 'true', message: '请选择分类', trigger: ['change'] }
+        ],
         goodsName: [
           { required: 'true', message: '请填写商品名称', trigger: ['change'] }
         ],
