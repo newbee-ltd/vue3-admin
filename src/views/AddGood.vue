@@ -174,7 +174,8 @@ export default {
             stockNum: goods.stockNum,
             goodsSellStatus: String(goods.goodsSellStatus),
             goodsCoverImg: proxy.$filters.prefix(goods.goodsCoverImg),
-            tag: goods.tag
+            tag: goods.tag,
+            categoryId: goods.goodsCategoryId
           }
           state.categoryId = goods.goodsCategoryId
           state.defaultCate = `${firstCategory.categoryName}/${secondCategory.categoryName}/${thirdCategory.categoryName}`
