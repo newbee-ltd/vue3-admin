@@ -9,7 +9,7 @@
         <el-input type="text" v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item label="排序值" prop="rank">
-        <el-input type="number" v-model="ruleForm.rank"></el-input>
+        <el-input type="number" max='200' v-model="ruleForm.rank"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -49,7 +49,7 @@ export default {
           { required: 'true', message: '名称不能为空', trigger: ['change'] }
         ],
         rank: [
-          { required: 'true', message: '编号不能为空', trigger: ['change'] }
+          { required: 'true', message: '排序值不能为空', trigger: ['change'] }
         ]
       },
       id: ''
@@ -91,6 +91,10 @@ export default {
         if (valid) {
           if (hasEmoji(state.ruleForm.name)) {
             ElMessage.error('不要输入表情包，再输入就打死你个龟孙儿~')
+            return
+          }
+          if (state.ruleForm.rank > 200) {
+            ElMessage.error('排序不能超过200')
             return
           }
           if (props.type == 'add') {
