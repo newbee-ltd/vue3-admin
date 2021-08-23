@@ -2,7 +2,7 @@
   <div class="add">
     <el-card class="add-container">
       <el-form :model="goodForm" :rules="rules" ref="goodRef" label-width="100px" class="goodForm">
-        <el-form-item required label="商品分类" prop="categoryId">
+        <el-form-item required label="商品分类">
           <el-cascader :placeholder="defaultCate" style="width: 300px" :props="category" @change="handleChangeCate"></el-cascader>
         </el-form-item>
         <el-form-item label="商品名称" prop="goodsName">
@@ -91,9 +91,6 @@ export default {
       rules: {
         goodsCoverImg: [
           { required: 'true', message: '请上传主图', trigger: ['change'] }
-        ],
-        categoryId: [
-          { required: 'true', message: '请选择分类', trigger: ['change'] }
         ],
         goodsName: [
           { required: 'true', message: '请填写商品名称', trigger: ['change'] }
@@ -209,6 +206,18 @@ export default {
           }
           if (hasEmoji(params.goodsIntro) || hasEmoji(params.goodsName) || hasEmoji(params.tag) || hasEmoji(params.goodsDetailContent)) {
             ElMessage.error('不要输入表情包，再输入就打死你个龟孙儿~')
+            return
+          }
+          if (params.goodsName.length > 128) {
+            ElMessage.error('商品名称不能超过128个字符')
+            return
+          }
+          if (params.goodsIntro.length > 200) {
+            ElMessage.error('商品简介不能超过200个字符')
+            return
+          }
+          if (params.tag.length > 16) {
+            ElMessage.error('商品标签不能超过16个字符')
             return
           }
           console.log('params', params)

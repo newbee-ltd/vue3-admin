@@ -93,6 +93,10 @@ export default {
             ElMessage.error('不要输入表情包，再输入就打死你个龟孙儿~')
             return
           }
+          if (state.ruleForm.name.length > 16) {
+            ElMessage.error('名称不能超过16个字符')
+            return
+          }
           if (state.ruleForm.rank > 200) {
             ElMessage.error('排序不能超过200')
             return

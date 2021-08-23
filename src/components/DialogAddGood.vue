@@ -99,6 +99,10 @@ export default {
             ElMessage.error('不要输入表情包，再输入就打死你个龟孙儿~')
             return
           }
+          if (state.ruleForm.name.length > 128) {
+            ElMessage.error('商品名称不能超过128个字符')
+            return
+          }
           if (state.ruleForm.sort < 0 || state.ruleForm.sort > 200) {
             ElMessage.error('排序值不能小于 0 或大于 200')
             return
