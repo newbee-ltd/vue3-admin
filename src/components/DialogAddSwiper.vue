@@ -3,6 +3,7 @@
     :title="type == 'add' ? '添加轮播图' : '修改轮播图'"
     v-model="visible"
     width="400px"
+    @close="handleClose"
   >
     <el-form :model="ruleForm" :rules="rules" ref="formRef" label-width="100px" class="good-form">
       <el-form-item label="图片" prop="url">
@@ -109,6 +110,9 @@ export default {
     const close = () => {
       state.visible = false
     }
+    const handleClose = () => {
+      formRef.value.resetFields()
+    }
     const submitForm = () => {
       console.log(formRef.value.validate)
       formRef.value.validate((valid) => {
@@ -149,7 +153,8 @@ export default {
       formRef,
       handleBeforeUpload,
       handleUrlSuccess,
-      submitForm
+      submitForm,
+      handleClose
     }
   }
 }
