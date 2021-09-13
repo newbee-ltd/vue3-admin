@@ -3,6 +3,7 @@
     :title="type == 'add' ? '添加分类' : '修改分类'"
     v-model="visible"
     width="400px"
+    @close="handleClose"
   >
     <el-form :model="ruleForm" :rules="rules" ref="formRef" label-width="100px" class="good-form">
       <el-form-item label="分类名称" prop="name">
@@ -86,6 +87,9 @@ export default {
     const close = () => {
       state.visible = false
     }
+    const handleClose = () => {
+      formRef.value.resetFields()
+    }
     const submitForm = () => {
       formRef.value.validate((valid) => {
         if (valid) {
@@ -133,7 +137,8 @@ export default {
       open,
       close,
       formRef,
-      submitForm
+      submitForm,
+      handleClose
     }
   }
 }
