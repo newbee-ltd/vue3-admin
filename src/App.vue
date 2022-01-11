@@ -85,6 +85,7 @@ export default {
     Footer
   },
   setup() {
+    console.log('App')
     const noMenu = ['/login']
     const router = useRouter()
     const state = reactive({

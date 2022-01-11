@@ -356,7 +356,7 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@sentry/browser@6.3.1", "@sentry/browser@^6.3.1":
+"@sentry/browser@^6.3.1":
   version "6.3.1"
   resolved "https://registry.nlark.com/@sentry/browser/download/@sentry/browser-6.3.1.tgz#6142dd4c72308f4e1a12e585e3300fd54ca058cd"
   integrity sha1-YULdTHIwj04aEuWF4zAP1UygWM0=
@@ -417,18 +417,6 @@
   integrity sha1-bY5pETm1tJ2MZVrR3K8ss/8NCwM=
   dependencies:
     "@sentry/types" "6.3.1"
-    tslib "^1.9.3"
-
-"@sentry/vue@^6.3.1":
-  version "6.3.1"
-  resolved "https://registry.nlark.com/@sentry/vue/download/@sentry/vue-6.3.1.tgz#1d44d9838fa12283441b9fab87be708a2590a1da"
-  integrity sha1-HUTZg4+hIoNEG5+rh75wiiWQodo=
-  dependencies:
-    "@sentry/browser" "6.3.1"
-    "@sentry/core" "6.3.1"
-    "@sentry/minimal" "6.3.1"
-    "@sentry/types" "6.3.1"
-    "@sentry/utils" "6.3.1"
     tslib "^1.9.3"
 
 "@types/accepts@*":
