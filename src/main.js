@@ -1,14 +1,10 @@
 import { createApp } from 'vue'
-import { ElButton, ElContainer, ElAside, ElHeader, ElMain, ElFooter, ElMenu, ElSubmenu, ElMenuItemGroup, ElMenuItem, ElForm, ElFormItem, ElInput, ElPopover, ElTag, ElCard, ElTable, ElTableColumn, ElPagination, ElDialog, ElPopconfirm, ElUpload, ElLoading, ElSelect, ElOption, ElRadioGroup, ElRadio, ElCascader, ElCheckbox, ElInputNumber } from 'element-plus'
-import * as Sentry from "@sentry/browser";
-import { Integrations } from "@sentry/tracing";
+import { ElButton, ElContainer, ElAside, ElHeader, ElMain, ElFooter, ElMenu, ElSubMenu, ElMenuItemGroup, ElMenuItem, ElForm, ElFormItem, ElInput, ElPopover, ElTag, ElCard, ElTable, ElTableColumn, ElPagination, ElDialog, ElPopconfirm, ElUpload, ElLoading, ElSelect, ElOption, ElRadioGroup, ElRadio, ElCascader, ElCheckbox, ElInputNumber } from 'element-plus'
+import * as Sentry from "@sentry/browser"
+import * as ElIconModules from '@element-plus/icons-vue'
+import { Integrations } from "@sentry/tracing"
 import App from './App.vue'
 import router from './router/index'
-
-// import 'element-plus/lib/theme-chalk/index.css'
-
-// 修改后的主题样式必须放在最后面
-import '../theme/index.css'
 
 const orderStatus = {
   0: '待支付',
@@ -50,6 +46,16 @@ app.config.globalProperties.$filters = {
   }  
 }
 
+console.log('ElIconModules', ElIconModules)
+
+function transElIconName (iconName) {
+  return 'i' + iconName.replace(/[A-Z]/g,(match)=> '-' + match.toLowerCase())
+}
+
+for(let iconName in ElIconModules){
+  app.component(transElIconName(iconName), ElIconModules[iconName])
+}
+
 app.use(router)
 
 app.use(ElButton)
@@ -59,7 +65,7 @@ app.use(ElButton)
     .use(ElMain)
     .use(ElFooter)
     .use(ElMenu)
-    .use(ElSubmenu)
+    .use(ElSubMenu)
     .use(ElMenuItemGroup)
     .use(ElMenuItem)
     .use(ElForm)

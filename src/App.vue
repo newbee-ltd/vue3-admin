@@ -16,46 +16,46 @@
           :router="true"
           :default-active='state.currentPath'
         >
-          <el-submenu index="1">
+          <el-sub-menu index="1">
             <template #title>
               <span>Dashboard</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/introduce"><i class="el-icon-data-line" />系统介绍</el-menu-item>
-              <el-menu-item index="/dashboard"><i class="el-icon-odometer" />Dashboard</el-menu-item>
-              <el-menu-item index="/add"><i class="el-icon-plus" />添加商品</el-menu-item>
+              <el-menu-item index="/introduce"><i-data-line width='20' /><span class="menu-cutom-title">系统介绍</span></el-menu-item>
+              <el-menu-item index="/dashboard"><i-odometer width='20' /><span class="menu-cutom-title">Dashboard</span></el-menu-item>
+              <el-menu-item index="/add"><i-plus width='20' /><span class="menu-cutom-title">添加商品</span></el-menu-item>
             </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="2">
+          </el-sub-menu>
+          <el-sub-menu index="2">
             <template #title>
               <span>首页配置</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/swiper"><i class="el-icon-picture" />轮播图配置</el-menu-item>
-              <el-menu-item index="/hot"><i class="el-icon-star-on" />热销商品配置</el-menu-item>
-              <el-menu-item index="/new"><i class="el-icon-sell" />新品上线配置</el-menu-item>
-              <el-menu-item index="/recommend"><i class="el-icon-thumb" />为你推荐配置</el-menu-item>
+              <el-menu-item index="/swiper"><i-picture width='20' /><span class="menu-cutom-title">轮播图配置</span></el-menu-item>
+              <el-menu-item index="/hot"><i-star-filled width='20' /><span class="menu-cutom-title">热销商品配置</span></el-menu-item>
+              <el-menu-item index="/new"><i-sell width='20' /><span class="menu-cutom-title">新品上线配置</span></el-menu-item>
+              <el-menu-item index="/recommend"><i-pointer width='20' /><span class="menu-cutom-title">为你推荐配置</span></el-menu-item>
             </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="3">
+          </el-sub-menu>
+          <el-sub-menu index="3">
             <template #title>
               <span>模块管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/category"><i class="el-icon-menu" />分类管理</el-menu-item>
-              <el-menu-item index="/good"><i class="el-icon-s-goods" />商品管理</el-menu-item>
-              <el-menu-item index="/guest"><i class="el-icon-user-solid" />会员管理</el-menu-item>
-              <el-menu-item index="/order"><i class="el-icon-s-order" />订单管理</el-menu-item>
+              <el-menu-item index="/category"><i-menu width='20' /><span class="menu-cutom-title">分类管理</span></el-menu-item>
+              <el-menu-item index="/good"><i-goods-filled width='20' /><span class="menu-cutom-title">商品管理</span></el-menu-item>
+              <el-menu-item index="/guest"><i-user-filled width='20' /><span class="menu-cutom-title">会员管理</span></el-menu-item>
+              <el-menu-item index="/order"><i-tickets width='20' /><span class="menu-cutom-title">订单管理</span></el-menu-item>
             </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="4">
+          </el-sub-menu>
+          <el-sub-menu index="4">
             <template #title>
               <span>系统管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/account"><i class="el-icon-lock" />修改密码</el-menu-item>
+              <el-menu-item index="/account"><i-unlock width='20' /><span class="menu-cutom-title">修改密码</span></el-menu-item>
             </el-menu-item-group>
-          </el-submenu>
+          </el-sub-menu>
         </el-menu>
       </el-aside>
       <el-container class="content">
@@ -189,6 +189,9 @@ export default {
     overflow: auto;
     padding: 10px;
   }
+  .menu-cutom-title {
+    padding-left: 10px;
+  }
 </style>
 <style>
   body {
@@ -199,14 +202,17 @@ export default {
   .el-menu {
     border-right: none!important;
   }
-  .el-submenu {
+  .el-menu-item-group {
+    background-color: #222832;
+  }
+  .el-sub-menu {
     border-top: 1px solid hsla(0, 0%, 100%, .05);
     border-bottom: 1px solid rgba(0, 0, 0, .2);
   }
-  .el-submenu:first-child {
+  .el-sub-menu:first-child {
     border-top: none;
   }
-  .el-submenu [class^="el-icon-"] {
+  .el-sub-menu [class^="el-icon-"] {
     vertical-align: -1px!important;
   }
   a {

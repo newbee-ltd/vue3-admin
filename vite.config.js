@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vitePluginImport from 'vite-plugin-babel-import';
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path'
 
 const baseUrl = {
@@ -13,15 +15,16 @@ const baseUrl = {
 export default ({ mode }) =>  defineConfig({
   plugins: [
     vue(),
-    vitePluginImport([
-      {
-        libraryName: 'element-plus',
-        libraryDirectory: 'es',
-        style(name) {
-          return `element-plus/lib/theme-chalk/${name}.css`;
-        },
-      }
-    ])
+    // 按需加在
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    // 按需引入，主题色的配置，需要加上 importStyle: 'sass'
+    Components({
+      resolvers: [ElementPlusResolver({
+        importStyle: 'sass'
+      })],
+    }),
   ],
   base: baseUrl[mode],
   resolve: {
@@ -29,6 +32,14 @@ export default ({ mode }) =>  defineConfig({
       '~': path.resolve(__dirname, './'),
       '@': path.resolve(__dirname, 'src')
     }
+  },
+  css: {
+    preprocessorOptions: {
+      // 覆盖掉element-plus包中的主题变量文件
+      scss: {
+        additionalData: `@use "@/styles/element/index.scss" as *;`,
+      },
+    },
   },
   server: {
     proxy: {

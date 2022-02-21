@@ -1,0 +1,9 @@
+// styles/element/index.scss
+/* just override what you need */
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  $colors: (
+    "primary": (
+      "base": #1baeae,
+    ),
+  ),
+);
