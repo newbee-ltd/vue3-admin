@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import ElementPlus from 'unplugin-element-plus/vite' // 不加这个配置，ElMessage出不来
 import path from 'path'
 
 const baseUrl = {
@@ -25,6 +26,7 @@ export default ({ mode }) =>  defineConfig({
         importStyle: 'sass'
       })],
     }),
+    ElementPlus()
   ],
   base: baseUrl[mode],
   resolve: {

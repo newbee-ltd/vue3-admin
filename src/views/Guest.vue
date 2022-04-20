@@ -2,14 +2,14 @@
   <el-card class="guest-container">
     <template #header>
       <div class="header">
-        <el-button type="primary" size="small" icon="el-icon-plus" @click="handleSolve">解除禁用</el-button>
-        <el-button type="danger" size="small" icon="el-icon-delete" @click="handleForbid">禁用账户</el-button>
+        <el-button type="primary" @click="handleSolve">解除禁用</el-button>
+        <el-button type="danger" @click="handleForbid">禁用账户</el-button>
       </div>
     </template>
     <el-table
-      v-loading="loading"
+      v-loading="state.loading"
       ref="multipleTable"
-      :data="tableData"
+      :data="state.tableData"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -71,90 +71,76 @@
     <el-pagination
       background
       layout="prev, pager, next"
-      :total="total"
-      :page-size="pageSize"
-      :current-page="currentPage"
+      :total="state.total"
+      :page-size="state.pageSize"
+      :current-page="state.currentPage"
       @current-change="changePage"
     />
   </el-card>
 </template>
 
-<script>
+<script setup>
 import { onMounted, reactive, ref, toRefs } from 'vue'
 import axios from '@/utils/axios'
 import { ElMessage } from 'element-plus'
-export default {
-  name: 'Guest',
-  setup() {
-    const multipleTable = ref(null)
-    const state = reactive({
-      loading: false,
-      tableData: [], // 数据列表
-      multipleSelection: [], // 选中项
-      total: 0, // 总条数
-      currentPage: 1, // 当前页
-      pageSize: 10 // 分页大小
-    })
-    onMounted(() => {
-      getGuestList()
-    })
-    // 获取轮播图列表
-    const getGuestList = () => {
-      state.loading = true
-      axios.get('/users', {
-        params: {
-          pageNumber: state.currentPage,
-          pageSize: state.pageSize
-        }
-      }).then(res => {
-        state.tableData = res.list
-        state.total = res.totalCount
-        state.currentPage = res.currPage
-        state.loading = false
-      })
+const multipleTable = ref(null)
+const state = reactive({
+  loading: false,
+  tableData: [], // 数据列表
+  multipleSelection: [], // 选中项
+  total: 0, // 总条数
+  currentPage: 1, // 当前页
+  pageSize: 10 // 分页大小
+})
+onMounted(() => {
+  getGuestList()
+})
+// 获取轮播图列表
+const getGuestList = () => {
+  state.loading = true
+  axios.get('/users', {
+    params: {
+      pageNumber: state.currentPage,
+      pageSize: state.pageSize
     }
-    // 选择项
-    const handleSelectionChange = (val) => {
-      state.multipleSelection = val
-    }
-    const changePage = (val) => {
-      state.currentPage = val
-      getGuestList()
-    }
-    const handleSolve = () => {
-      if (!state.multipleSelection.length) {
-        ElMessage.error('请选择项')
-        return
-      }
-      axios.put(`/users/0`, {
-        ids: state.multipleSelection.map(item => item.userId)
-      }).then(() => {
-        ElMessage.success('解除成功')
-        getGuestList()
-      })
-    }
-    const handleForbid = () => {
-      if (!state.multipleSelection.length) {
-        ElMessage.error('请选择项')
-        return
-      }
-      axios.put(`/users/1`, {
-        ids: state.multipleSelection.map(item => item.userId)
-      }).then(() => {
-        ElMessage.success('禁用成功')
-        getGuestList()
-      })
-    }
-    return {
-      ...toRefs(state),
-      multipleTable,
-      handleSelectionChange,
-      getGuestList,
-      changePage,
-      handleSolve,
-      handleForbid
-    }
+  }).then(res => {
+    state.tableData = res.list
+    state.total = res.totalCount
+    state.currentPage = res.currPage
+    state.loading = false
+  })
+}
+// 选择项
+const handleSelectionChange = (val) => {
+  state.multipleSelection = val
+}
+const changePage = (val) => {
+  state.currentPage = val
+  getGuestList()
+}
+const handleSolve = () => {
+  if (!state.multipleSelection.length) {
+    ElMessage.error('请选择项')
+    return
   }
+  axios.put(`/users/0`, {
+    ids: state.multipleSelection.map(item => item.userId)
+  }).then(() => {
+    ElMessage.success('解除成功')
+    getGuestList()
+  })
+}
+const handleForbid = () => {
+  if (!state.multipleSelection.length) {
+    ElMessage.error('请选择项')
+    return
+  }
+  axios.put(`/users/1`, {
+    ids: state.multipleSelection.map(item => item.userId)
+  }).then(() => {
+    ElMessage.success('禁用成功')
+    getGuestList()
+  })
 }
 </script>
 

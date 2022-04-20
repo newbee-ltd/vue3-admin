@@ -220,7 +220,7 @@ export default {
     text-decoration: none;
   }
   .el-pagination {
-    text-align: center;
+    justify-content: center;
     margin-top: 20px;
   }
   .el-popper__arrow {

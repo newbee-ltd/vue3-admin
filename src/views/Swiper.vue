@@ -2,13 +2,15 @@
   <el-card class="swiper-container">
     <template #header>
       <div class="header">
-        <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">增加</el-button>
+        <el-button type="primary" @click="handleAdd"><i-plus width='14' /> 增加</el-button>
         <el-popconfirm
           title="确定删除吗？"
           @confirm="handleDelete"
+          confirm-button-text="确定"
+          cancel-button-text="取消"
         >
           <template #reference>
-            <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
+            <el-button type="danger"><i-delete width='14' /> 批量删除</el-button>
           </template>
         </el-popconfirm>
       </div>
@@ -59,6 +61,8 @@
           <el-popconfirm
             title="确定删除吗？"
             @confirm="handleDeleteOne(scope.row.carouselId)"
+            confirm-button-text="确定"
+            cancel-button-text="取消"
           >
             <template #reference>
               <a style="cursor: pointer">删除</a>

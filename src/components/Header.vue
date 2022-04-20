@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="left">
-      <i v-if="hasBack" class="el-icon-back" @click="back"></i>
+      <i-back v-if="hasBack" width="14" height="14" class="el-icon-back" @click="back" />
       <span style="font-size: 20px">{{ name }}</span>
     </div>
     <div class="right">
@@ -81,12 +81,16 @@ export default {
 
 <style scoped>
   .header {
-    height: 50px;
+    height: 52px;
     border-bottom: 1px solid #e9e9e9;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+  }
+  .left {
+    display: flex;
+    align-items: center;
   }
   .el-icon-back {
     border: 1px solid #e9e9e9;

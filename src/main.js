@@ -46,7 +46,7 @@ app.config.globalProperties.$filters = {
   }  
 }
 
-console.log('ElIconModules', ElIconModules)
+// console.log('ElIconModules', ElIconModules)
 
 function transElIconName (iconName) {
   return 'i' + iconName.replace(/[A-Z]/g,(match)=> '-' + match.toLowerCase())
