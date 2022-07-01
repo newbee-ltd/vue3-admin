@@ -49,7 +49,7 @@ export default {
         ]
       }
     })
-    const submitForm = async () => {
+    const submitForm = () => {
       loginForm.value.validate((valid) => {
         if (valid) {
           axios.post('/adminUser/login', {
