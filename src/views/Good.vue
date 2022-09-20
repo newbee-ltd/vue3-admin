@@ -2,20 +2,15 @@
   <el-card class="good-container">
     <template #header>
       <div class="header">
-        <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">新增商品</el-button>
+        <el-button type="primary" :icon="Plus" @click="handleAdd">新增商品</el-button>
       </div>
     </template>
     <el-table
-      v-loading="loading"
-      ref="multipleTable"
-      :data="tableData"
+      :load="state.loading"
+      :data="state.tableData"
       tooltip-effect="dark"
       style="width: 100%"
-      @selection-change="handleSelectionChange">
-      <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
+    >
       <el-table-column
         prop="goodsId"
         label="商品编号"
@@ -73,83 +68,67 @@
     <el-pagination
       background
       layout="prev, pager, next"
-      :total="total"
-      :page-size="pageSize"
-      :current-page="currentPage"
+      :total="state.total"
+      :page-size="state.pageSize"
+      :current-page="state.currentPage"
       @current-change="changePage"
     />
   </el-card>
 </template>
 
-<script>
-import { onMounted, reactive, ref, toRefs } from 'vue'
+<script setup>
+import { onMounted, reactive, getCurrentInstance } from 'vue'
 import axios from '@/utils/axios'
 import { ElMessage } from 'element-plus'
+import { Plus, Delete } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
-export default {
-  name: 'Good',
-  setup() {
-    const multipleTable = ref(null)
-    const router = useRouter()
-    const state = reactive({
-      loading: false,
-      tableData: [], // 数据列表
-      multipleSelection: [], // 选中项
-      total: 0, // 总条数
-      currentPage: 1, // 当前页
-      pageSize: 10 // 分页大小
-    })
-    onMounted(() => {
-      getGoodList()
-    })
-    // 获取轮播图列表
-    const getGoodList = () => {
-      state.loading = true
-      axios.get('/goods/list', {
-        params: {
-          pageNumber: state.currentPage,
-          pageSize: state.pageSize
-        }
-      }).then(res => {
-        state.tableData = res.list
-        state.total = res.totalCount
-        state.currentPage = res.currPage
-        state.loading = false
-      })
+
+const app = getCurrentInstance()
+const { goTop } = app.appContext.config.globalProperties
+const router = useRouter()
+const state = reactive({
+  loading: false,
+  tableData: [], // 数据列表
+  total: 0, // 总条数
+  currentPage: 1, // 当前页
+  pageSize: 10 // 分页大小
+})
+onMounted(() => {
+  getGoodList()
+})
+// 获取轮播图列表
+const getGoodList = () => {
+  state.loading = true
+  axios.get('/goods/list', {
+    params: {
+      pageNumber: state.currentPage,
+      pageSize: state.pageSize
     }
-    const handleAdd = () => {
-      router.push({ path: '/add' })
-    }
-    const handleEdit = (id) => {
-      router.push({ path: '/add', query: { id } })
-    }
-    // 选择项
-    const handleSelectionChange = (val) => {
-      state.multipleSelection = val
-    }
-    const changePage = (val) => {
-      state.currentPage = val
-      getGoodList()
-    }
-    const handleStatus = (id, status) => {
-      axios.put(`/goods/status/${status}`, {
-        ids: id ? [id] : []
-      }).then(() => {
-        ElMessage.success('修改成功')
-        getGoodList()
-      })
-    }
-    return {
-      ...toRefs(state),
-      multipleTable,
-      handleSelectionChange,
-      handleAdd,
-      handleEdit,
-      getGoodList,
-      changePage,
-      handleStatus
-    }
-  }
+  }).then(res => {
+    state.tableData = res.list
+    state.total = res.totalCount
+    state.currentPage = res.currPage
+    state.loading = false
+    goTop && goTop()
+  })
+}
+const handleAdd = () => {
+  router.push({ path: '/add' })
+}
+const handleEdit = (id) => {
+  router.push({ path: '/add', query: { id } })
+}
+const changePage = (val) => {
+  state.currentPage = val
+  getGoodList()
+}
+const handleStatus = (id, status) => {
+  axios.put(`/goods/status/${status}`, {
+    ids: id ? [id] : []
+  }).then(() => {
+    ElMessage.success('修改成功')
+    getGoodList()
+  })
 }
 </script>
 
