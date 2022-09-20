@@ -2,7 +2,7 @@
   <div class="login-body">
     <div class="login-container">
       <div class="head">
-        <img class="logo" src="https://s.weituibao.com/1582958061265/mlogo.png" />
+        <img class="logo" src="https://s.yezgea02.com/1582958061265/mlogo.png" />
         <div class="name">
           <div class="title">新蜂商城</div>
           <div class="tips">Vue3.0 后台管理系统</div>
@@ -18,17 +18,17 @@
         <el-form-item>
           <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
           <el-button style="width: 100%" type="primary" @click="submitForm">立即登录</el-button>
-          <el-checkbox v-model="state.checked" @change="!checked">下次自动登录</el-checkbox>
+          <el-checkbox v-model="state.checked" @change="!state.checked">下次自动登录</el-checkbox>
         </el-form-item>
       </el-form>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import axios from '@/utils/axios'
 import md5 from 'js-md5'
-import { reactive, ref, toRefs } from 'vue'
+import { reactive, ref } from 'vue'
 import { localSet } from '@/utils'
 const loginForm = ref(null)
 const state = reactive({
@@ -74,7 +74,6 @@ const resetForm = () => {
     align-items: center;
     width: 100%;
     background-color: #fff;
-    /* background-image: linear-gradient(25deg, #077f7c, #3aa693, #5ecfaa, #7ffac2); */
   }
   .login-container {
     width: 420px;
@@ -107,12 +106,10 @@ const resetForm = () => {
     width: 70%;
     margin: 0 auto;
   }
-</style>
-<style>
-  .el-form--label-top .el-form-item__label {
+  .login-form >>> .el-form--label-top .el-form-item__label {
     padding: 0;
   }
-  .login-form .el-form-item {
-    margin-bottom: 12px;
+  .login-form >>> .el-form-item {
+    margin-bottom: 0;
   }
 </style>

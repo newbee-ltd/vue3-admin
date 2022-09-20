@@ -5,26 +5,26 @@
         <el-input
           style="width: 200px; margin-right: 10px"
           placeholder="请输入订单号"
-          v-model="orderNo"
+          v-model="state.orderNo"
           @change="handleOption"
           clearable
         />
-        <el-select @change="handleOption" v-model="orderStatus" style="width: 200px; margin-right: 10px">
+        <el-select @change="handleOption" v-model="state.orderStatus" style="width: 200px; margin-right: 10px">
           <el-option
-            v-for="item in options"
+            v-for="item in state.options"
             :key="item.value"
             :label="item.label"
             :value="item.value"
           />
         </el-select>
         <!-- <el-button type="primary" size="small" icon="el-icon-edit">修改订单</el-button> -->
-        <el-button type="primary" @click="handleConfig()"><i-document-checked width="16" />配货完成</el-button>
-        <el-button type="primary" @click="handleSend()"><i-van width="16" />出库</el-button>
-        <el-button type="danger" @click="handleClose()"><i-document-delete width="16" /> 关闭订单</el-button>
+        <el-button type="primary" :icon="HomeFilled" @click="handleConfig()">配货完成</el-button>
+        <el-button type="primary" :icon="HomeFilled" @click="handleSend()">出库</el-button>
+        <el-button type="danger" :icon="Delete" @click="handleClose()">关闭订单</el-button>
       </div>
     </template>
     <el-table
-      v-loading="state.loading"
+      :load="state.loading"
       :data="state.tableData"
       tooltip-effect="dark"
       style="width: 100%"
@@ -58,7 +58,7 @@
         <template #default='scope'>
           <span v-if="scope.row.payType == 1">微信支付</span>
           <span v-else-if="scope.row.payType == 2">支付宝支付</span>
-          <span v-else>未支付</span>
+          <span v-else>未知</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -96,6 +96,8 @@
             v-if="!(scope.row.orderStatus == 4 || scope.row.orderStatus < 0)"
             title="确定关闭订单吗？"
             @confirm="handleClose(scope.row.orderId)"
+            confirm-button-text="确定"
+            cancel-button-text="取消"
           >
             <template #reference>
               <a style="cursor: pointer; margin-right: 10px">关闭订单</a>
@@ -105,7 +107,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <!--总数超过一页，再展示分页器-->
     <el-pagination
       background
       layout="prev, pager, next"
@@ -118,9 +119,11 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, toRefs } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
+import { HomeFilled, Delete } from '@element-plus/icons-vue'
 import axios from '@/utils/axios'
+
 const state = reactive({
   loading: false,
   tableData: [], // 数据列表
@@ -130,6 +133,7 @@ const state = reactive({
   pageSize: 10, // 分页大小
   orderNo: '', // 订单号
   orderStatus: '', // 订单状态
+  // 订单状态筛选项默认值
   options: [{
     value: '',
     label: '全部'
@@ -159,10 +163,11 @@ const state = reactive({
     label: '商家关闭'
   }]
 })
+// 初始化获取订单列表
 onMounted(() => {
   getOrderList()
 })
-// 获取轮播图列表
+// 获取列表方法
 const getOrderList = () => {
   state.loading = true
   axios.get('/orders', {
@@ -179,21 +184,24 @@ const getOrderList = () => {
     state.loading = false
   })
 }
+// 触发过滤项方法
 const handleOption = () => {
   state.currentPage = 1
   getOrderList()
 }
-// 选择项
+// checkbox 选择项
 const handleSelectionChange = (val) => {
   state.multipleSelection = val
 }
+// 翻页方法
 const changePage = (val) => {
   state.currentPage = val
   getOrderList()
 }
+// 配货方法
 const handleConfig = (id) => {
-  console.log('id', id)
   let params
+  // 当个配置
   if (id) {
     params = [id]
   } else {
@@ -202,6 +210,7 @@ const handleConfig = (id) => {
       ElMessage.error('请选择项')
       return
     }
+    // 多选配置
     params = state.multipleSelection.map(i => i.orderId)
   }
   axios.put('/orders/checkDone', {
@@ -211,6 +220,7 @@ const handleConfig = (id) => {
     getOrderList()
   })
 }
+// 出库方法
 const handleSend = (id) => {
   let params
   if (id) {
@@ -229,6 +239,7 @@ const handleSend = (id) => {
     getOrderList()
   })
 }
+// 关闭订单方法
 const handleClose = (id) => {
   let params
   if (id) {
@@ -248,12 +259,3 @@ const handleClose = (id) => {
   })
 }
 </script>
-
-<style scoped>
-  .order-container {
-    min-height: 100%;
-  }
-  .el-card.is-always-shadow {
-    min-height: 100%!important;
-  }
-</style>

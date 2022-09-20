@@ -1,10 +1,34 @@
 import { createApp } from 'vue'
-import { ElButton, ElContainer, ElAside, ElHeader, ElMain, ElFooter, ElMenu, ElSubMenu, ElMenuItemGroup, ElMenuItem, ElForm, ElFormItem, ElInput, ElPopover, ElTag, ElCard, ElTable, ElTableColumn, ElPagination, ElDialog, ElPopconfirm, ElUpload, ElLoading, ElSelect, ElOption, ElRadioGroup, ElRadio, ElCascader, ElCheckbox, ElInputNumber } from 'element-plus'
-import * as Sentry from "@sentry/browser"
-import * as ElIconModules from '@element-plus/icons-vue'
-import { Integrations } from "@sentry/tracing"
+import {
+  ElButton,
+  ElContainer,
+  ElAside,
+  ElMenu,
+  ElSubMenu,
+  ElMenuItemGroup,
+  ElMenuItem,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElCheckbox,
+  ElPopover,
+  ElTag,
+  ElCard,
+  ElTable,
+  ElTableColumn,
+  ElPopconfirm,
+  ElUpload,
+  ElDialog,
+  ElPagination,
+  ElCascader,
+  ElRadioGroup,
+  ElRadio,
+  ElSelect,
+  ElOption
+} from 'element-plus'
 import App from './App.vue'
-import router from './router/index'
+import router from '@/router'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 const orderStatus = {
   0: '待支付',
@@ -17,8 +41,13 @@ const orderStatus = {
   '-3': '商家关闭'
 }
 
-const app = createApp(App)
-// 全局过滤器
+const app = createApp(App) // 生成 Vue 实例 app
+
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
+
+// 全局方法
 app.config.globalProperties.$filters = {
   orderMap(status) {
     return orderStatus[status] || '未知状态'
@@ -30,73 +59,39 @@ app.config.globalProperties.$filters = {
       url = `http://backend-api-02.newbee.ltd${url}`
       return url
     }
-  },
-  resetImgUrl(imgObj, imgSrc, maxErrorNum) {  
-    if (maxErrorNum > 0) { 
-      imgObj.onerror = function() {  
-        resetImgUrl(imgObj, imgSrc, maxErrorNum - 1) 
-      }
-      setTimeout(function() {  
-        imgObj.src = imgSrc  
-      }, 500)
-    } else {  
-      imgObj.onerror = null  
-      imgObj.src = imgSrc
-    }  
-  }  
+  }
 }
 
-// console.log('ElIconModules', ElIconModules)
-
-function transElIconName (iconName) {
-  return 'i' + iconName.replace(/[A-Z]/g,(match)=> '-' + match.toLowerCase())
+app.config.globalProperties.goTop = function () {
+  const main = document.querySelector('.main')
+  main.scrollTop = 0
 }
 
-for(let iconName in ElIconModules){
-  app.component(transElIconName(iconName), ElIconModules[iconName])
-}
-
-app.use(router)
+app.use(router) // 引用路由实例
 
 app.use(ElButton)
-    .use(ElContainer)
-    .use(ElAside)
-    .use(ElHeader)
-    .use(ElMain)
-    .use(ElFooter)
-    .use(ElMenu)
-    .use(ElSubMenu)
-    .use(ElMenuItemGroup)
-    .use(ElMenuItem)
-    .use(ElForm)
-    .use(ElFormItem)
-    .use(ElInput)
-    .use(ElPopover)
-    .use(ElTag)
-    .use(ElCard)
-    .use(ElTable)
-    .use(ElTableColumn)
-    .use(ElPagination)
-    .use(ElDialog)
-    .use(ElPopconfirm)
-    .use(ElUpload)
-    .use(ElLoading)
-    .use(ElSelect)
-    .use(ElOption)
-    .use(ElRadioGroup)
-    .use(ElRadio)
-    .use(ElCascader)
-    .use(ElCheckbox)
-    .use(ElInputNumber)
-
-    Sentry.init({
-      dsn: "https://f866b695d21d467ba523f1adf14e0a24@o584908.ingest.sentry.io/5737358",
-      integrations: [new Integrations.BrowserTracing()],
-    
-      // Set tracesSampleRate to 1.0 to capture 100%
-      // of transactions for performance monitoring.
-      // We recommend adjusting this value in production
-      tracesSampleRate: 1.0,
-    });
-
-app.mount('#app')
+  .use(ElContainer)
+  .use(ElAside)
+  .use(ElMenu)
+  .use(ElSubMenu)
+  .use(ElMenuItemGroup)
+  .use(ElMenuItem)
+  .use(ElForm)
+  .use(ElFormItem)
+  .use(ElCheckbox)
+  .use(ElInput)
+  .use(ElPopover)
+  .use(ElTag)
+  .use(ElCard)
+  .use(ElTable)
+  .use(ElTableColumn)
+  .use(ElPopconfirm)
+  .use(ElUpload)
+  .use(ElDialog)
+  .use(ElPagination)
+  .use(ElCascader)
+  .use(ElRadioGroup)
+  .use(ElRadio)
+  .use(ElSelect)
+  .use(ElOption)
+app.mount('#app') // 挂载到 #app

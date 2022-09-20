@@ -32,7 +32,9 @@
 
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
+
 let myChart = null
+
 onMounted(() => {
   if (window.echarts) {
     // 基于准备好的dom，初始化echarts实例

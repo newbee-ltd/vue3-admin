@@ -2,21 +2,21 @@
   <el-card class="category-container">
     <template #header>
       <div class="header">
-        <el-button type="primary" @click="handleAdd"><i-plus width='14' /> 增加</el-button>
+        <el-button type="primary" :icon="Plus" @click="handleAdd">增加</el-button>
         <el-popconfirm
           title="确定删除吗？"
+          confirmButtonText='确定'
+          cancelButtonText='取消'
           @confirm="handleDelete"
-          confirm-button-text="确定"
-          cancel-button-text="取消"
         >
           <template #reference>
-            <el-button type="danger"><i-delete width='14' /> 批量删除</el-button>
+            <el-button type="danger" :icon="Delete">批量删除</el-button>
           </template>
         </el-popconfirm>
       </div>
     </template>
     <el-table
-      v-loading="state.loading"
+      :load="state.loading"
       ref="multipleTable"
       :data="state.tableData"
       tooltip-effect="dark"
@@ -53,9 +53,9 @@
           <a style="cursor: pointer; margin-right: 10px" @click="handleNext(scope.row)">下级分类</a>
           <el-popconfirm
             title="确定删除吗？"
+            confirmButtonText='确定'
+            cancelButtonText='取消'
             @confirm="handleDeleteOne(scope.row.categoryId)"
-            confirm-button-text="确定"
-            cancel-button-text="取消"
           >
             <template #reference>
               <a style="cursor: pointer">删除</a>
@@ -73,20 +73,21 @@
       :current-page="state.currentPage"
       @current-change="changePage"
     />
+    <DialogAddCategory ref='addCate' :reload="getCategory" :type="state.type" />
   </el-card>
-  <DialogAddCategory ref='addGood' :reload="getCategory" :type="state.type" :level="state.level" :parent_id="state.parent_id" />
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, reactive, ref, toRefs } from 'vue'
+import { onMounted, onUnmounted, reactive, ref, toRefs, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import DialogAddCategory from '@/components/DialogAddCategory.vue'
+import { Plus, Delete } from '@element-plus/icons-vue'
 import axios from '@/utils/axios'
-const multipleTable = ref(null)
-const addGood = ref(null)
-const router = useRouter()
-const route = useRoute()
+import DialogAddCategory from '@/components/DialogAddCategory.vue'
+
+const addCate = ref(null)
+const router = useRouter() // 声明路由实例
+const route = useRoute() // 获取路由参数
 const state = reactive({
   loading: false,
   tableData: [], // 数据列表
@@ -101,13 +102,17 @@ const state = reactive({
 onMounted(() => {
   getCategory()
 })
-onUnmounted(() => {
-  unwatch()
+watchEffect(() => {
+  console.log(state.pageSize)
 })
 const unwatch = router.afterEach((to) => {
+  // 每次路由变化的时候，都会触发监听时间，重新获取列表数据
   if (['category', 'level2', 'level3'].includes(to.name)) {
     getCategory()
   }
+})
+onUnmounted(() => {
+  unwatch()
 })
 // 获取分类列表
 const getCategory = () => {
@@ -129,15 +134,33 @@ const getCategory = () => {
     state.parentId = parent_id
   })
 }
+const changePage = (val) => {
+  state.currentPage = val
+  getCategory()
+}
+const handleNext = (item) => {
+  const levelNumber = item.categoryLevel + 1
+  if (levelNumber == 4) {
+    ElMessage.error('没有下一级')
+    return
+  }
+  router.push({
+    name: `level${levelNumber}`,
+    query: {
+      level: levelNumber,
+      parent_id: item.categoryId
+    }
+  })
+}
 // 添加分类
 const handleAdd = () => {
   state.type = 'add'
-  addGood.value.open()
+  addCate.value.open()
 }
 // 修改分类
 const handleEdit = (id) => {
   state.type = 'edit'
-  addGood.value.open(id)
+  addCate.value.open(id)
 }
 // 选择项
 const handleSelectionChange = (val) => {
@@ -169,31 +192,8 @@ const handleDeleteOne = (id) => {
     getCategory()
   })
 }
-const changePage = (val) => {
-  state.currentPage = val
-  getCategory()
-}
-const handleNext = (item) => {
-  const levelNumber = item.categoryLevel + 1
-  if (levelNumber == 4) {
-    ElMessage.error('没有下一级')
-    return
-  }
-  router.push({
-    name: `level${levelNumber}`,
-    query: {
-      level: levelNumber,
-      parent_id: item.categoryId
-    }
-  })
-}
 </script>
 
-<style scoped>
-  .category-container {
-    min-height: 100%;
-  }
-  .el-card.is-always-shadow {
-    min-height: 100%!important;
-  }
+<style>
+
 </style>

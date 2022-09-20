@@ -1,6 +1,6 @@
 <template>
   <el-card class="account-container">
-    <el-form :model="nameForm" :rules="state.rules" ref="nameRef" label-width="80px" label-position="right" class="demo-ruleForm">
+    <el-form :model="state.nameForm" :rules="state.rules" ref="nameRef" label-width="80px" label-position="right" class="demo-ruleForm">
       <el-form-item label="登录名：" prop="loginName">
         <el-input style="width: 200px" v-model="state.nameForm.loginName"></el-input>
       </el-form-item>
@@ -13,7 +13,7 @@
     </el-form>
   </el-card>
   <el-card class="account-container">
-    <el-form :model="passForm" :rules="state.rules" ref="passRef" label-width="80px" label-position="right" class="demo-ruleForm">
+    <el-form :model="state.passForm" :rules="state.rules" ref="passRef" label-width="80px" label-position="right" class="demo-ruleForm">
       <el-form-item label="原密码：" prop="oldpass">
         <el-input style="width: 200px" v-model="state.passForm.oldpass"></el-input>
       </el-form-item>
@@ -28,10 +28,11 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, toRefs } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import axios from '@/utils/axios'
 import { ElMessage } from 'element-plus'
 import md5 from 'js-md5'
+
 const nameRef = ref(null)
 const passRef = ref(null)
 const state = reactive({

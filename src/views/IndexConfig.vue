@@ -2,21 +2,21 @@
   <el-card class="index-container">
     <template #header>
       <div class="header">
-        <el-button type="primary" @click="handleAdd"><i-plus width='14' /> 增加</el-button>
+        <el-button type="primary" :icon="Plus" @click="handleAdd">增加</el-button>
         <el-popconfirm
           title="确定删除吗？"
+          confirmButtonText='确定'
+          cancelButtonText='取消'
           @confirm="handleDelete"
-          confirm-button-text="确定"
-          cancel-button-text="取消"
         >
           <template #reference>
-            <el-button type="danger"><i-delete width='14' /> 批量删除</el-button>
+            <el-button type="danger" :icon="Delete">批量删除</el-button>
           </template>
         </el-popconfirm>
       </div>
     </template>
     <el-table
-      v-loading="state.loading"
+      :load="state.loading"
       ref="multipleTable"
       :data="state.tableData"
       tooltip-effect="dark"
@@ -64,9 +64,9 @@
           <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row.configId)">修改</a>
           <el-popconfirm
             title="确定删除吗？"
-            @confirm="handleDeleteOne(scope.row.configId)"
             confirmButtonText='确定'
             cancelButtonText='取消'
+            @confirm="handleDeleteOne(scope.row.configId)"
           >
             <template #reference>
               <a style="cursor: pointer">删除</a>
@@ -89,8 +89,9 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, reactive, ref, toRefs } from 'vue'
+import { onMounted, reactive, ref, toRefs } from 'vue'
 import { ElMessage } from 'element-plus'
+import { Plus, Delete } from '@element-plus/icons-vue'
 import DialogAddGood from '@/components/DialogAddGood.vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from '@/utils/axios'
@@ -100,6 +101,7 @@ const configTypeMap = {
   new: 4,
   recommend: 5
 }
+
 const router = useRouter()
 const route = useRoute()
 const multipleTable = ref(null)
@@ -115,7 +117,7 @@ const state = reactive({
   configType: 3 // 3-(首页)热销商品 4-(首页)新品上线 5-(首页)为你推荐
 })
 // 监听路由变化
-const unwatch = router.beforeEach((to) => {
+router.beforeEach((to) => {
   if (['hot', 'new', 'recommend'].includes(to.name)) {
     state.configType = configTypeMap[to.name]
     state.currentPage = 1
@@ -126,9 +128,6 @@ const unwatch = router.beforeEach((to) => {
 onMounted(() => {
   state.configType = configTypeMap[route.name]
   getIndexConfig()
-})
-onUnmounted(() => {
-  unwatch()
 })
 // 首页热销商品列表
 const getIndexConfig = () => {
@@ -166,10 +165,8 @@ const handleDelete = () => {
     ElMessage.error('请选择项')
     return
   }
-  axios.delete('/indexConfigs', {
-    data: {
-      ids: state.multipleSelection.map(i => i.configId)
-    }
+  axios.post('/indexConfigs/delete', {
+    ids: state.multipleSelection.map(i => i.configId)
   }).then(() => {
     ElMessage.success('删除成功')
     getIndexConfig()
@@ -177,10 +174,8 @@ const handleDelete = () => {
 }
 // 单个删除
 const handleDeleteOne = (id) => {
-  axios.delete('/indexConfigs', {
-    data: {
-      ids: [id]
-    }
+  axios.post('/indexConfigs/delete', {
+    ids: [id]
   }).then(() => {
     ElMessage.success('删除成功')
     getIndexConfig()

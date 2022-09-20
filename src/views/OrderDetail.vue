@@ -8,7 +8,7 @@
           </div>
         </template>
         <div>
-          {{ data.orderStatusString }}
+          {{ state.data.orderStatusString }}
         </div>
       </el-card>
       <el-card class="data-item" shadow="hover">
@@ -18,7 +18,7 @@
           </div>
         </template>
         <div>
-          {{ data.createTime }}
+          {{ state.data.createTime }}
         </div>
       </el-card>
       <el-card class="data-item" shadow="hover">
@@ -28,12 +28,12 @@
           </div>
         </template>
         <div>
-          {{ data.orderNo }}
+          {{ state.data.orderNo }}
         </div>
       </el-card>
     </div>
     <el-table
-      :data="tableData"
+      :data="state.tableData"
       tooltip-effect="dark"
       style="width: 100%"
     >
@@ -67,32 +67,24 @@
   </el-card>
 </template>
 
-<script>
-import { onMounted, reactive, toRefs } from 'vue'
+<script setup>
+import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from '@/utils/axios'
-export default {
-  name: 'OrderDetail',
-  setup() {
-    const route = useRoute()
-    const { id } = route.query
-    const state = reactive({
-      data: {},
-      tableData: []
-    })
-    onMounted(() => {
-      axios.get(`/orders/${id}`).then(res => {
-        console.log(res)
-        state.data = res
-        state.tableData = res.newBeeMallOrderItemVOS
-      })
-    })
 
-    return {
-      ...toRefs(state)
-    }
-  }
-}
+const route = useRoute()
+const { id } = route.query
+const state = reactive({
+  data: {},
+  tableData: []
+})
+onMounted(() => {
+  axios.get(`/orders/${id}`).then(res => {
+    console.log(res)
+    state.data = res
+    state.tableData = res.newBeeMallOrderItemVOS
+  })
+})
 </script>
 
 <style scoped>
