@@ -61,7 +61,7 @@ app.config.globalProperties.$filters = {
     }
   }
 }
-
+//一行注释
 app.config.globalProperties.goTop = function () {
   const main = document.querySelector('.main')
   main.scrollTop = 0
