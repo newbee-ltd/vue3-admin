@@ -91,5 +91,6 @@ const router = createRouter({
     }
   ]
 })
+//为什么不适用动态添加路由
 
 export default router
