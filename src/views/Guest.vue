@@ -60,29 +60,29 @@ import { ElMessage } from 'element-plus'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import axios from '@/utils/axios'
 
-const table = ref(null)
+letst table = $ref(null)
 const handleSolve = () => {
-if (!table.value.multipleSelection.length) {
+if (!table.state.multipleSelection.length) {
   ElMessage.error('请选择项')
   return
 }
 axios.put(`/users/0`, {
-  ids: table.value.multipleSelection.map(item => item.userId)
+  ids: table.state.multipleSelection.map(item => item.userId)
 }).then(() => {
   ElMessage.success('解除成功')
-  table.value.getList()
+  table.getList()
 })
 }
 const handleForbid = () => {
-if (!table.value.multipleSelection.length) {
+if (!table.state.multipleSelection.length) {
   ElMessage.error('请选择项')
   return
 }
 axios.put(`/users/1`, {
-  ids: table.value.multipleSelection.map(item => item.userId)
+  ids: table.state.multipleSelection.map(item => item.userId)
 }).then(() => {
   ElMessage.success('禁用成功')
-  table.value.getList()
+  table.getList()
 })
 }
 </script>
