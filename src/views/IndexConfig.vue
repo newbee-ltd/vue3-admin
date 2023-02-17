@@ -165,7 +165,7 @@ const handleDelete = () => {
     ElMessage.error('请选择项')
     return
   }
-  axios.post('/indexConfigs/delete', {
+  axios.delete('/indexConfigs', {
     ids: state.multipleSelection.map(i => i.configId)
   }).then(() => {
     ElMessage.success('删除成功')
@@ -174,7 +174,7 @@ const handleDelete = () => {
 }
 // 单个删除
 const handleDeleteOne = (id) => {
-  axios.post('/indexConfigs/delete', {
+  axios.delete('/indexConfigs', {
     ids: [id]
   }).then(() => {
     ElMessage.success('删除成功')
