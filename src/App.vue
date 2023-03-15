@@ -86,6 +86,10 @@ const state = reactive({
   currentPath: '/',
 })
 
+router.afterEach((to, from) => {
+  state.showMenu = !noMenu.includes(to.path)
+})
+
 router.beforeEach((to, from, next) => {
   if (to.path == '/login') {
     // 如果路径是 /login 则正常执行
@@ -100,7 +104,6 @@ router.beforeEach((to, from, next) => {
       next()
     }
   }
-  state.showMenu = !noMenu.includes(to.path)
   state.currentPath = to.path
   document.title = pathMap[to.name]
 })
